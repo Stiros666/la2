@@ -1,0 +1,24 @@
+server {
+    listen 80;
+    server_name example.com;
+    root /home/ACCOUNT/public_html;
+    index index.php;
+    charset utf-8;
+    client_max_body_size 10m;
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-Frame-Options SAMEORIGIN always;
+    location = /cms-private { return 403; }
+    location ^~ /cms-private/ { return 403; }
+    location / { try_files $uri $uri/ /index.php?$query_string; }
+    location = /index.php {
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/index.php;
+        fastcgi_param LA2PLUS_PRIVATE_GUARD 1;
+        fastcgi_param HTTPS $https if_not_empty;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+    }
+    location ~ \.php(?:/|$) { return 404; }
+    location ~ /\. { deny all; }
+}
+# Add your TLS certificate and redirect HTTP to HTTPS before opening registration.
+# Restrict /install/ to your administrative IP while installing, if possible.

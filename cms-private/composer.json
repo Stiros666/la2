@@ -1,0 +1,8 @@
+{
+    "require": {
+        "php": "^8.3",
+        "cocur/slugify": "^4.6",
+        "intervention/image": "^2.7",
+        "phpmailer/phpmailer": "^6.10"
+    }
+}

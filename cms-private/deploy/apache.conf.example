@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+    ServerName example.com
+    DocumentRoot /home/ACCOUNT/public_html
+    <Directory /home/ACCOUNT/public_html>
+        Require all granted
+        AllowOverride All
+        Options -Indexes
+    </Directory>
+</VirtualHost>
+# Configure PHP 8.3-FPM, mod_rewrite and HTTPS in your hosting control panel.

@@ -1,0 +1,16 @@
+AddDefaultCharset UTF-8
+Options -Indexes
+DirectoryIndex index.php
+SetEnv LA2PLUS_PRIVATE_GUARD 1
+RewriteEngine On
+
+# Deny before testing existing files/directories.
+RewriteRule ^cms-private(?:/|$) - [F,L,NC]
+RewriteRule (^|/)\. - [F,L]
+# Only the front controller may execute PHP.
+RewriteCond %{REQUEST_URI} !^/index\.php$ [NC]
+RewriteRule \.(?:php[0-9]?|phtml|phar)(?:/|$) - [F,L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]

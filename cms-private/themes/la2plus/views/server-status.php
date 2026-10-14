@@ -1,0 +1,2 @@
+<?php if (!config('server_status.allow') || empty($content)) { ?><p>Сервер ещё не подключён</p><?php } else { ?>
+<div class="cms-servers"><?php foreach ($content as $row) { ?><div class="cms-server"><strong><?php echo e($row['gs']->name); ?></strong><?php if (isset($row['error'])) { ?><span>Статус недоступен</span><?php } else { ?><span><?php echo $row['gs_status'] === 'online' ? 'ONLINE' : 'OFFLINE'; ?></span><span>Игроков: <?php echo (int)$row['online']; ?></span><?php } ?></div><?php } ?></div><?php } ?>
